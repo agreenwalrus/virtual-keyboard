@@ -87,7 +87,7 @@ function clickServiceButton(button, isActivated) {
   } else if (element === 'Alt') {
     if (KEYBOARD.ctrlPressed && isActivated) {
       KEYBOARD.toggleLanguage();
-      document.cookie = `keyboardLang=${KEYBOARD.lang}`;
+      document.cookie = `keyboardLang=${KEYBOARD.lang}; SameSite=None; Secure`;
     }
   }
 }
