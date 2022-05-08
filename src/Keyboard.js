@@ -5,14 +5,17 @@ export default class Keyboard {
 
   capsLock = false;
 
-  #lang = 'en';
+  shiftPressed = false;
 
-  constructor(keys, textArea) {
+  #lang = null;
+
+  constructor(keys, textArea, lang = 'eng') {
     this.keyboard = document.createElement('div');
     this.keyboard.classList.add('keyboard');
     this.keyboardContent = document.createElement('div');
     this.keyboardContent.classList.add('keyboard__content');
     this.keyboard.appendChild(this.keyboardContent);
+    this.#lang = lang;
     this.init(keys);
 
     this.#textArea = textArea;
@@ -20,7 +23,7 @@ export default class Keyboard {
 
   init(keys) {
     keys.forEach((key) => {
-      const keyElem = KeyElement.getKeyElement(key);
+      const keyElem = KeyElement.getKeyElement(key, this.#lang);
       this.keyboardContent.appendChild(keyElem);
     });
   }

@@ -4,7 +4,7 @@ import {} from './sass/main.scss';
 import Text from './Text';
 
 const TEXTAREA = new Text();
-const KEYBOARD = new Keyboard(KEYBOARD_CONTENT, TEXTAREA);
+const KEYBOARD = new Keyboard(KEYBOARD_CONTENT, TEXTAREA, 'ru');
 
 function populateWindow() {
   const wrapper = document.createElement('div');
@@ -40,7 +40,11 @@ function updateTextArea(button) {
   const element = button.firstChild.data || ' ';
 
   if ((element || ' ').length === 1) {
-    content += KEYBOARD.capsLock ? element.toUpperCase() : element.toLowerCase();
+    if (Boolean(KEYBOARD.capsLock) !== Boolean(KEYBOARD.shiftPressed)) {
+      content += element.toUpperCase();
+    } else {
+      content += element.toLowerCase();
+    }
   } else if (element === 'Tab') {
     // eslint-disable-next-line no-tabs
     content += '	';
@@ -60,9 +64,22 @@ function updateTextArea(button) {
   if (element === 'Caps Lock') {
     KEYBOARD.capsLock = 1 - KEYBOARD.capsLock;
     button.classList.toggle('key--active', KEYBOARD.capsLock);
+  } else if (element === 'Shift') {
+    KEYBOARD.shiftPressed = 1;
   }
 
   TEXTAREA.setContent(`${content}`);
+}
+
+function clickServiceButton(button) {
+  const element = button.firstChild.data || ' ';
+
+  if (element === 'Caps Lock') {
+    KEYBOARD.capsLock = 1 - KEYBOARD.capsLock;
+    button.classList.toggle('key--active', KEYBOARD.capsLock);
+  } else if (element === 'Shift') {
+    KEYBOARD.shiftPressed = 1;
+  }
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -77,17 +94,30 @@ window.addEventListener('DOMContentLoaded', () => {
 
     button.classList.add('key--pressed');
     updateTextArea(button);
+    clickServiceButton(button);
   });
 
   document.body.addEventListener('keyup', (e) => {
     const button = document.getElementById(e.code);
     if (button === null) { return; }
+    if ((button.firstChild.data || ' ') === 'Shift') {
+      KEYBOARD.shiftPressed = 0;
+    }
     button.classList.remove('key--pressed');
   });
 
   document.querySelectorAll('.key').forEach((elem) => {
-    elem.addEventListener('click', () => {
+    elem.addEventListener('mousedown', () => {
       updateTextArea(elem);
+      clickServiceButton(elem);
+    });
+
+    elem.addEventListener('mouseup', (event) => {
+      console.log(event.target);
+      const element = event.target.firstChild.data || ' ';
+      if (element === 'Shift') {
+        KEYBOARD.shiftPressed = 0;
+      }
     });
   });
 });

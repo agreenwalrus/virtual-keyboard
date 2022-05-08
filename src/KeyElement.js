@@ -1,8 +1,8 @@
 export default class KeyElement {
-  static getKeyElement(key) {
+  static getKeyElement(key, lang) {
     const elem = document.createElement('button');
     elem.setAttribute('type', 'button');
-    elem.innerHTML = key.eng;
+    elem.innerHTML = key[lang] || key.eng;
     elem.setAttribute('id', key.eventCode);
     elem.classList.add('key');
     switch (key.width) {
