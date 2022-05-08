@@ -1,8 +1,18 @@
 export default class KeyElement {
-  static getKeyElement(key, lang) {
+  static getKeyElement(key) {
     const elem = document.createElement('button');
     elem.setAttribute('type', 'button');
-    elem.innerHTML = key[lang] || key.eng;
+
+    const eng = document.createElement('span');
+    eng.classList.add('key__eng');
+    eng.innerHTML = key.eng;
+    elem.appendChild(eng);
+
+    const ru = document.createElement('span');
+    ru.classList.add('key__ru');
+    ru.innerHTML = key.ru || key.eng;
+    elem.appendChild(ru);
+
     elem.setAttribute('id', key.eventCode);
     elem.classList.add('key');
     switch (key.width) {
@@ -20,7 +30,7 @@ export default class KeyElement {
     }
 
     if (key.altSymbol !== '') {
-      const altSymb = document.createElement('p');
+      const altSymb = document.createElement('span');
       altSymb.classList.add('key__double-right');
       altSymb.innerHTML = key.altSymb;
       elem.appendChild(altSymb);

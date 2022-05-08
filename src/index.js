@@ -3,8 +3,14 @@ import KEYBOARD_CONTENT from './data/keyboard-content';
 import {} from './sass/main.scss';
 import Text from './Text';
 
+function getCookie(name) {
+  const matches = document.cookie.match(new RegExp(
+    `(?:^|; )${name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1')}=([^;]*)`,
+  ));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+}
 const TEXTAREA = new Text();
-const KEYBOARD = new Keyboard(KEYBOARD_CONTENT, TEXTAREA, 'ru');
+const KEYBOARD = new Keyboard(KEYBOARD_CONTENT, TEXTAREA, getCookie('keyboardLang') || 'eng');
 
 function populateWindow() {
   const wrapper = document.createElement('div');
@@ -37,9 +43,12 @@ function populateWindow() {
 function updateTextArea(button) {
   let content = TEXTAREA.getContent();
 
-  const element = button.firstChild.data || ' ';
+  let element = button.querySelector(`.key__${KEYBOARD.lang}`).innerHTML || ' ';
+  if (KEYBOARD.shiftPressed) {
+    element = button.querySelector('.key__double-right').innerHTML || element;
+  }
 
-  if ((element || ' ').length === 1) {
+  if (element.length === 1) {
     if (Boolean(KEYBOARD.capsLock) !== Boolean(KEYBOARD.shiftPressed)) {
       content += element.toUpperCase();
     } else {
@@ -65,14 +74,21 @@ function updateTextArea(button) {
   TEXTAREA.setContent(`${content}`);
 }
 
-function clickServiceButton(button) {
-  const element = button.firstChild.data || ' ';
+function clickServiceButton(button, isActivated) {
+  const element = button.querySelector(`.key__${KEYBOARD.lang}`).innerHTML || ' ';
 
-  if (element === 'Caps Lock') {
+  if (element === 'Caps Lock' && isActivated) {
     KEYBOARD.capsLock = 1 - KEYBOARD.capsLock;
     button.classList.toggle('key--active', KEYBOARD.capsLock);
   } else if (element === 'Shift') {
-    KEYBOARD.shiftPressed = 1;
+    KEYBOARD.shiftPressed = isActivated;
+  } else if (element === 'Ctrl') {
+    KEYBOARD.ctrlPressed = isActivated;
+  } else if (element === 'Alt') {
+    if (KEYBOARD.ctrlPressed && isActivated) {
+      KEYBOARD.toggleLanguage();
+      document.cookie = `keyboardLang=${KEYBOARD.lang}`;
+    }
   }
 }
 
@@ -88,30 +104,26 @@ window.addEventListener('DOMContentLoaded', () => {
 
     button.classList.add('key--pressed');
     updateTextArea(button);
-    clickServiceButton(button);
+    clickServiceButton(button, 1);
   });
 
   document.body.addEventListener('keyup', (e) => {
     const button = document.getElementById(e.code);
     if (button === null) { return; }
-    if ((button.firstChild.data || ' ') === 'Shift') {
-      KEYBOARD.shiftPressed = 0;
-    }
+
+    clickServiceButton(button, 0);
     button.classList.remove('key--pressed');
   });
 
   document.querySelectorAll('.key').forEach((elem) => {
     elem.addEventListener('mousedown', () => {
       updateTextArea(elem);
-      clickServiceButton(elem);
+      clickServiceButton(elem, 1);
     });
 
     elem.addEventListener('mouseup', (event) => {
       console.log(event.target);
-      const element = event.target.firstChild.data || ' ';
-      if (element === 'Shift') {
-        KEYBOARD.shiftPressed = 0;
-      }
+      clickServiceButton(event.target, 0);
     });
   });
 });

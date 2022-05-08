@@ -7,7 +7,9 @@ export default class Keyboard {
 
   shiftPressed = false;
 
-  #lang = null;
+  ctrlPressed = false;
+
+  lang = null;
 
   constructor(keys, textArea, lang = 'eng') {
     this.keyboard = document.createElement('div');
@@ -15,7 +17,7 @@ export default class Keyboard {
     this.keyboardContent = document.createElement('div');
     this.keyboardContent.classList.add('keyboard__content');
     this.keyboard.appendChild(this.keyboardContent);
-    this.#lang = lang;
+    this.lang = lang;
     this.init(keys);
 
     this.#textArea = textArea;
@@ -23,12 +25,27 @@ export default class Keyboard {
 
   init(keys) {
     keys.forEach((key) => {
-      const keyElem = KeyElement.getKeyElement(key, this.#lang);
+      const keyElem = KeyElement.getKeyElement(key);
       this.keyboardContent.appendChild(keyElem);
     });
+    this.setUpLangualge();
   }
 
   getKeyboard() {
     return this.keyboard;
+  }
+
+  setUpLangualge() {
+    this.keyboardContent.querySelectorAll('.key__eng').forEach((elem) => {
+      elem.classList.toggle('key--hide', this.lang !== 'eng');
+    });
+    this.keyboardContent.querySelectorAll('.key__ru').forEach((elem) => {
+      elem.classList.toggle('key--hide', this.lang !== 'ru');
+    });
+  }
+
+  toggleLanguage() {
+    this.lang = this.lang === 'ru' ? 'eng' : 'ru';
+    this.setUpLangualge();
   }
 }
