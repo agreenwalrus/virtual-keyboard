@@ -1,0 +1,13 @@
+.keyboard {
+    background-color: $background-color;
+    padding: 10px;
+    max-width: 700px;
+    border: 1px solid $pressed-color;
+    border-radius: 10px;
+}
+
+.keyboard__content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 2px;
+}

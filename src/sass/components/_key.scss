@@ -1,0 +1,74 @@
+.key {
+    width: $key-width;
+    height: $key-height;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: $alphabetic-symbol-color;
+    background-color: $alphabetic-color;
+
+    cursor: pointer;
+
+    &:hover{
+        background-color: $hovered-color;
+    }
+
+    &:active{
+        background-color: $pressed-color;
+        color: $pressed-symbol-color;
+    }
+
+    transition: 0.05s;
+}
+
+.key__double-right {
+    position: absolute;
+    top: 0px;
+    left: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.key--service {
+    color: $service-symbol-color;
+    background-color: $service-color;
+}
+
+.key--wide {
+    flex: 1 0 5%;
+    max-width: 60px;
+}
+
+.key--wider {
+    flex: 1 0 10%;
+    max-width: 92px;
+}
+
+.key--widest {
+    flex: 1 0 15%;
+    max-width: 500px;
+}
+
+.key--activate::after {
+    content: ' ';
+    position: absolute;
+    right: 5px;
+    border-radius: 100px;
+    height: 5px;
+    width: 5px;
+    background-color: $service-symbol-color;
+}
+
+.key--active::after {
+    background-color: $active-color;
+}
+
+.key--pressed {
+    color: $pressed-symbol-color;
+    background-color: $pressed-color;
+}
