@@ -1,6 +1,7 @@
 .key {
     width: $key-width;
     height: $key-height;
+    border-color: $hovered-color;
     border-radius: 10px;
     position: relative;
     display: flex;

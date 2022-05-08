@@ -16,7 +16,7 @@ export default [
   new Key('=', 'Equal', 'a', false, '', '+'),
   new Key('Backspace', 'Backspace', true, 'e', '', '', '', 3),
 
-  new Key('Tab', 'Tab', 'a', true, '', '', '', 2),
+  new Key('Tab', 'Tab', 'a', true, '', '', '', 3),
   new Key('q', 'KeyQ', 'a', false, '', ''),
   new Key('w', 'KeyW', 'a', false, '', ''),
   new Key('e', 'KeyE', 'a', false, '', ''),
@@ -30,7 +30,6 @@ export default [
   new Key('[', 'BracketLeft', 'a', false, '', ''),
   new Key(']', 'BracketRight', 'a', false, '', ''),
   new Key('\\', 'Backslash', 'a', false, '', '|'),
-  new Key('DEL', 'Backspace', 'e', true, '', '', '', 2),
 
   new Key('Caps Lock', 'CapsLock', 'c', true, '', '', '', 3),
   new Key('a', 'KeyA', 'a', false, '', ''),

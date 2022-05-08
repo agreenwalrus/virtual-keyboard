@@ -1,4 +1,6 @@
 export default class Text {
+  #length = 97;
+
   #content = '';
 
   #textArea = null;

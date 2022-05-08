@@ -3,9 +3,9 @@ import KeyElement from './KeyElement';
 export default class Keyboard {
   #textArea = null;
 
-  #capsLock = false;
+  capsLock = false;
 
-  #isEng = true;
+  #lang = 'en';
 
   constructor(keys, textArea) {
     this.keyboard = document.createElement('div');
@@ -22,11 +22,6 @@ export default class Keyboard {
     keys.forEach((key) => {
       const keyElem = KeyElement.getKeyElement(key);
       this.keyboardContent.appendChild(keyElem);
-      keyElem.addEventListener('click', (e) => {
-        const content = this.#textArea.getContent();
-        this.#textArea.setContent(`${content}${e.target.firstChild.data}`);
-        console.log(e);
-      });
     });
   }
 

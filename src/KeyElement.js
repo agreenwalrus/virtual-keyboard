@@ -26,15 +26,13 @@ export default class KeyElement {
       elem.appendChild(altSymb);
     }
 
-    if (key.dark) { elem.classList.add('key--service'); }
+    if (key.dark) {
+      elem.classList.add('key--service');
+    }
 
-    if (key.type === 'c') { elem.classList.add('key--activate'); }
-
-    elem.addEventListener('click', () => {
-      window.dispatchEvent(new KeyboardEvent('keydown', {
-        code: this.eventCode,
-      }));
-    });
+    if (key.type === 'c') {
+      elem.classList.add('key--activate');
+    }
 
     return elem;
   }
