@@ -4,10 +4,10 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build": "npx webpack --config webpack.config.js --mode development",
+    "dev": "npx webpack --config webpack.config.js --mode development",
+    "build": "npx webpack --config webpack.config.js --mode production",
     "watch": "npx webpack --watch --config webpack.config.js --mode development",
-    "start": "npx webpack serve --open",
-    "sass-dev": "sass --watch --update --style=expanded ./src/sass/main.scss:src/main.css"
+    "start": "npx webpack serve --open"
   },
   "keywords": [],
   "author": "",
