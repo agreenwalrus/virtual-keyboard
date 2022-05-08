@@ -61,12 +61,6 @@ function updateTextArea(button) {
   } else if (element === 'ArrowRight') {
     content += '►';
   }
-  if (element === 'Caps Lock') {
-    KEYBOARD.capsLock = 1 - KEYBOARD.capsLock;
-    button.classList.toggle('key--active', KEYBOARD.capsLock);
-  } else if (element === 'Shift') {
-    KEYBOARD.shiftPressed = 1;
-  }
 
   TEXTAREA.setContent(`${content}`);
 }
