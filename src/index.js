@@ -122,7 +122,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     elem.addEventListener('mouseup', (event) => {
-      console.log(event.target);
       clickServiceButton(event.target, 0);
     });
   });
