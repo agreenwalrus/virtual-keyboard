@@ -5,10 +5,6 @@ module.exports = {
   mode: 'development',
   entry: {
     index: './src/index.js',
-    // Key: './src/Key.js',
-    // Keyboard: './src/Keyboard.js',
-    // KeyElement: './src/KeyElement.js',
-    // data: './src/data/keyboard-content.js',
   },
   devtool: 'inline-source-map',
   devServer: {
