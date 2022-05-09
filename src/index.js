@@ -103,6 +103,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     button.classList.add('key--pressed');
+    button.classList.add('key__animation');
     updateTextArea(button);
     clickServiceButton(button, 1);
   });
@@ -113,16 +114,19 @@ window.addEventListener('DOMContentLoaded', () => {
 
     clickServiceButton(button, 0);
     button.classList.remove('key--pressed');
+    button.classList.remove('key__animation');
   });
 
   document.querySelectorAll('.key').forEach((elem) => {
     elem.addEventListener('mousedown', () => {
+      elem.classList.add('key__animation');
       updateTextArea(elem);
       clickServiceButton(elem, 1);
     });
 
     elem.addEventListener('mouseup', (event) => {
       clickServiceButton(event.target, 0);
+      event.target.classList.remove('key__animation');
     });
   });
 });
