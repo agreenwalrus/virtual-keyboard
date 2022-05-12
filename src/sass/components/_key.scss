@@ -1,0 +1,101 @@
+.key {
+    box-sizing: border-box;
+    width: $key-width;
+    height: $key-height;
+    border-color: $hovered-color;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+        color: $alphabetic-symbol-color;
+        pointer-events: none;
+    }
+    background-color: $alphabetic-color;
+
+    cursor: pointer;
+
+    &:hover{
+        background-color: $hovered-color;
+    }
+
+    &:active{
+        background-color: $pressed-color !important;
+        span {
+            color: $pressed-symbol-color !important;
+        }
+    }
+
+    transition: 0.05s;
+}
+
+.key__double-right {
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.key--service {
+    span {
+        color: $service-symbol-color;
+    }
+    background-color: $service-color;
+}
+
+.key--wide {
+    flex: 1 0 5%;
+    max-width: 60px;
+}
+
+.key--wider {
+    flex: 1 0 10%;
+    max-width: 92px;
+}
+
+.key--widest {
+    flex: 1 0 15%;
+    max-width: 500px;
+}
+
+.key--activate::after {
+    content: ' ';
+    position: absolute;
+    right: 5px;
+    border-radius: 100px;
+    height: 5px;
+    width: 5px;
+    background-color: $service-symbol-color;
+}
+
+.key--active::after {
+    background-color: $active-color;
+}
+
+.key--pressed {
+    span {
+        color: $pressed-symbol-color !important;
+    }
+    background-color: $pressed-color !important;
+}
+
+.key--hide {
+    display: none;
+}
+
+@keyframes rounded {
+    from {border-radius: 10px;}
+    to {border-radius: 25px; }
+  }
+
+
+.key__animation {
+    animation-name: rounded;
+    animation-duration: .05s;
+    animation-fill-mode: forwards;
+  }
