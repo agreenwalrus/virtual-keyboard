@@ -35,6 +35,12 @@ function populateWindow() {
   p2.innerHTML = 'Для переключения языка комбинация: левыe ctrl + alt';
   description.appendChild(p2);
 
+  const a = document.createElement('a');
+  a.innerHTML = 'Pull Request';
+  a.setAttribute('href', 'https://github.com/agreenwalrus/virtual-keyboard/pull/3');
+  a.setAttribute('target', '_blank');
+  description.appendChild(a);
+
   wrapper.appendChild(description);
 
   document.body.appendChild(wrapper);
